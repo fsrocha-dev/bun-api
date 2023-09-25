@@ -1,4 +1,6 @@
 import UseCase from "../../shared/UseCase";
+import HashPassword from "../utils/HashPassword";
+import UuidGenerator from "../utils/UuidGenerator";
 import RepositoryUser from "./RepositoryUser";
 
 type RegisterUserRequest = {
@@ -24,6 +26,9 @@ export default class RegisterUser implements UseCase<RegisterUserRequest, void> 
 			throw new Error("User already exists");
 		}
 
-		await this.repository.create({ name, email, password });
+		const id = new UuidGenerator().generate();
+		const passwordHash = await new HashPassword().generate(password);
+
+		await this.repository.create({ id, name, email, password: passwordHash });
 	}
 }
