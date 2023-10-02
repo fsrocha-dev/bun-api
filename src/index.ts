@@ -4,6 +4,8 @@ import RegisterUser from "./core/user/service/RegisterUser";
 import RegisterUserController from "./adapters/Users/RegisterUserController";
 import FindUserById from "./core/user/service/FindUserById";
 import FindUserByIdController from "./adapters/Users/FindUserByIdController";
+import FindUserByEmail from './core/user/service/FindUserByEmail';
+import FindUserByEmailController from './adapters/Users/FindUserByEmailController';
 
 
 
@@ -15,6 +17,9 @@ new RegisterUserController(app, registerUser);
 
 const findUserById = new FindUserById(repositoryPrismaPg);
 new FindUserByIdController(app, findUserById);
+
+const findUserByEmail = new FindUserByEmail(repositoryPrismaPg);
+new FindUserByEmailController(app, findUserByEmail);
 
 app.listen(3000);
 
